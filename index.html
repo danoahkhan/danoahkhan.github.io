@@ -50,11 +50,11 @@
             margin-bottom: 2rem;
             font-weight: 500;
             text-transform: lowercase;
-            transition: text-shadow 0.3s ease;
             display: inline-block;
+            position: relative; /* Add this */
         }
 
-        h1:hover {
+        .glow {
             text-shadow: 
                 0 0 5px rgba(180, 175, 255, 0.6),
                 0 0 10px rgba(180, 175, 255, 0.5),
@@ -149,7 +149,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>localgovy</h1>
+            <h1 id="logo">localgovy</h1>
             <p class="tagline">Your Local Community Hub: Connect, Engage, and Make a Difference</p>
         </header>
         <section class="features">
@@ -183,6 +183,29 @@
             <a href="#" class="cta-button">Join Your Community Today</a>
         </section>
     </div>
+
+    <script>
+        const logo = document.getElementById('logo');
+        const threshold = 1; // 1px threshold
+
+        document.addEventListener('mousemove', (e) => {
+            const rect = logo.getBoundingClientRect();
+            const x = e.clientX;
+            const y = e.clientY;
+
+            // Check if the mouse is within 1px of any edge of the logo
+            if (
+                (Math.abs(x - rect.left) <= threshold && y >= rect.top && y <= rect.bottom) ||
+                (Math.abs(x - rect.right) <= threshold && y >= rect.top && y <= rect.bottom) ||
+                (Math.abs(y - rect.top) <= threshold && x >= rect.left && x <= rect.right) ||
+                (Math.abs(y - rect.bottom) <= threshold && x >= rect.left && x <= rect.right)
+            ) {
+                logo.classList.add('glow');
+            } else {
+                logo.classList.remove('glow');
+            }
+        });
+    </script>
 </body>
 </html>
 
