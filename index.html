@@ -62,7 +62,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
-            min-height: 200vh; /* Ensure minimum height of 2 full pages */
+            min-height: 200vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -122,46 +122,45 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            margin-bottom: 5rem; /* Increased margin */
+            margin-bottom: 5rem;
         }
         .feature {
-            flex-basis: 45%; /* Changed to 2 columns */
+            flex-basis: 45%;
             text-align: center;
-            padding: 2rem; /* Increased padding */
-            margin-bottom: 2rem; /* Added margin between features */
+            padding: 2rem;
+            margin-bottom: 2rem;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
         }
         .feature h3 {
             color: #635bff;
-            margin-bottom: 1rem; /* Increased margin */
-            font-size: 1.5rem; /* Increased font size */
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
             font-weight: 500;
         }
         .feature p {
-            font-size: 1.2rem; /* Increased font size */
+            font-size: 1.2rem;
         }
         .cta {
             text-align: center;
-            margin-top: auto; /* Push to bottom */
-            padding-bottom: 3rem; /* Add padding at the bottom */
+            margin-top: auto;
+            padding-bottom: 3rem;
         }
         .cta-button {
             display: inline-block;
             background-color: #635bff;
             color: white;
-            padding: 1.2rem 2.5rem; /* Increased padding */
+            padding: 1.2rem 2.5rem;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 1.3rem; /* Increased font size */
+            font-size: 1.3rem;
             transition: background-color 0.3s ease;
         }
         .cta-button:hover {
             background-color: #4b45c6;
         }
-        /* New styles */
         .about-section {
             text-align: center;
             margin-bottom: 5rem;
@@ -178,7 +177,6 @@
             margin: 0 auto 1.5rem;
         }
 
-        /* New ribbon styles */
         .ribbon1, .ribbon2 {
             position: absolute;
             width: 150px;
@@ -215,6 +213,64 @@
             bottom: 30px;
             right: -100px;
         }
+
+        .early-signup {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .early-signup h2 {
+            color: #635bff;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .early-signup p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #signup-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        #phone {
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 4px 0 0 4px;
+            width: 250px;
+            font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+        }
+
+        .signup-button {
+            background-color: #635bff;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+            transition: background-color 0.3s ease;
+            font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+            font-weight: 500;
+        }
+
+        .signup-button:hover {
+            background-color: #4b45c6;
+        }
+
+        .disclaimer {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
     </style>
 </head>
 <body>
@@ -244,7 +300,6 @@
             </div>
         </section>
 
-        <!-- New About section -->
         <section class="about-section">
             <h2>About localgovy</h2>
             <p>localgovy is a revolutionary platform designed to empower local communities and foster civic engagement. We believe that strong, connected communities are the foundation of a thriving society.</p>
@@ -254,6 +309,16 @@
 
         <section class="cta">
             <a href="#" class="cta-button">Join Your Community Today</a>
+        </section>
+
+        <section class="early-signup">
+            <h2>Be the First to Know!</h2>
+            <p>Sign up now to get notified when localgovy launches at the end of October.</p>
+            <form id="signup-form">
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                <button type="submit" class="signup-button">Remind Me</button>
+            </form>
+            <p class="disclaimer">We'll only use your number to send a reminder about our launch. No spam, we promise!</p>
         </section>
     </div>
 </body>
