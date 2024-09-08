@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>localgovy - Engage with Your Local Community</title>
+    <title>localgovy - Your Local Community Hub</title>
     <link href="https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro" rel="stylesheet">
     <style>
         body {
@@ -18,60 +18,84 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
+            min-height: 200vh; /* Ensure minimum height of 2 full pages */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 5rem; /* Increased margin */
         }
         h1 {
-            font-size: 3.5rem;
+            font-size: 5rem; /* Increased font size */
             color: #635bff;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem; /* Increased margin */
             font-weight: 500;
             text-transform: lowercase;
         }
         .tagline {
-            font-size: 1.4rem;
-            color: #6b7c93;
+            font-size: 1.8rem; /* Increased font size */
+            max-width: 800px;
+            margin: 0 auto;
         }
         .features {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
-            margin-bottom: 3rem;
+            margin-bottom: 5rem; /* Increased margin */
         }
         .feature {
-            flex-basis: 22%;
+            flex-basis: 45%; /* Changed to 2 columns */
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem; /* Increased padding */
+            margin-bottom: 2rem; /* Added margin between features */
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
         }
         .feature h3 {
             color: #635bff;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+            margin-bottom: 1rem; /* Increased margin */
+            font-size: 1.5rem; /* Increased font size */
             font-weight: 500;
         }
         .feature p {
-            font-size: 1rem;
+            font-size: 1.2rem; /* Increased font size */
         }
         .cta {
             text-align: center;
+            margin-top: auto; /* Push to bottom */
+            padding-bottom: 3rem; /* Add padding at the bottom */
         }
         .cta-button {
             display: inline-block;
             background-color: #635bff;
             color: white;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2.5rem; /* Increased padding */
             border-radius: 25px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1.3rem; /* Increased font size */
             transition: background-color 0.3s ease;
         }
         .cta-button:hover {
             background-color: #4b45c6;
+        }
+        /* New styles */
+        .about-section {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        .about-section h2 {
+            font-size: 2.5rem;
+            color: #635bff;
+            margin-bottom: 1.5rem;
+        }
+        .about-section p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
         }
     </style>
 </head>
@@ -79,28 +103,37 @@
     <div class="container">
         <header>
             <h1>localgovy</h1>
-            <p class="tagline">Empowering local voices, shaping our community together</p>
+            <p class="tagline">Your Local Community Hub: Connect, Engage, and Make a Difference</p>
         </header>
         <section class="features">
             <div class="feature">
-                <h3>Focused Discussions</h3>
-                <p>Engage in meaningful conversations about local issues that matter most.</p>
+                <h3>Community Forums</h3>
+                <p>Discuss local issues, share ideas, and collaborate with neighbors on topics that matter.</p>
             </div>
             <div class="feature">
-                <h3>Community Polls</h3>
-                <p>Have your say in local decisions through easy-to-use polls and surveys.</p>
+                <h3>Local Events</h3>
+                <p>Discover and promote community events, from town halls to neighborhood clean-ups.</p>
             </div>
             <div class="feature">
-                <h3>Local News</h3>
-                <p>Stay informed with curated news and updates relevant to your town.</p>
+                <h3>Resource Directory</h3>
+                <p>Access a comprehensive list of local services, businesses, and organizations.</p>
             </div>
             <div class="feature">
-                <h3>Civic Initiatives</h3>
-                <p>Discover and participate in local projects and volunteer opportunities.</p>
+                <h3>Civic Engagement</h3>
+                <p>Stay informed about local government activities and participate in decision-making processes.</p>
             </div>
         </section>
+
+        <!-- New About section -->
+        <section class="about-section">
+            <h2>About localgovy</h2>
+            <p>localgovy is a revolutionary platform designed to empower local communities and foster civic engagement. We believe that strong, connected communities are the foundation of a thriving society.</p>
+            <p>Our mission is to provide a user-friendly, accessible space where neighbors can come together, share ideas, and work collaboratively to address local issues and improve their communities.</p>
+            <p>Whether you're a long-time resident or new to the area, localgovy offers the tools and resources you need to stay informed, get involved, and make a positive impact in your neighborhood.</p>
+        </section>
+
         <section class="cta">
-            <a href="#" class="cta-button">Join Your Community</a>
+            <a href="#" class="cta-button">Join Your Community Today</a>
         </section>
     </div>
 </body>
