@@ -366,71 +366,32 @@
 
         /* Footer */
         footer {
-            padding: 60px 0;
+            padding: 40px 0;
             background-color: var(--text-dark);
             color: var(--white);
         }
 
-        .footer-container {
+        .footer-simple {
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .footer-column {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .footer-links {
-            list-style-type: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: var(--white);
-            opacity: 0.8;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-        }
-
-        .social-links {
-            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
             gap: 15px;
-            margin-top: 20px;
         }
 
-        .social-links a {
+        .footer-logo {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
             color: var(--white);
-            font-size: 20px;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .social-links a:hover {
-            opacity: 1;
+            text-decoration: none;
+            text-transform: lowercase;
         }
 
         .copyright {
-            margin-top: 40px;
-            text-align: center;
-            width: 100%;
-            opacity: 0.6;
             font-size: 14px;
+            opacity: 0.7;
         }
 
         /* Mobile Responsive */
@@ -649,46 +610,11 @@
 
     <footer>
         <div class="container">
-            <div class="footer-container">
-                <div class="footer-column">
-                    <h3>Localgovy</h3>
-                    <p>Connecting communities through integrated information sharing and engagement tools.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                    </div>
+            <div class="footer-simple">
+                <a href="#" class="footer-logo">localgovy</a>
+                <div class="copyright">
+                    &copy; 2025 Localgovy. All rights reserved.
                 </div>
-                <div class="footer-column">
-                    <h3>Platform</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">News Modules</a></li>
-                        <li><a href="#">Polling System</a></li>
-                        <li><a href="#">AI Chatbot</a></li>
-                        <li><a href="#">Mobile App</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Success Stories</a></li>
-                        <li><a href="#">Community Blog</a></li>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Partner Network</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2023 Localgovy. All rights reserved.
             </div>
         </div>
     </footer>
