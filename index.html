@@ -6,7 +6,7 @@
     <title>Localgovy - Your Community Information Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -27,7 +27,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: Helvetica, Arial, sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
             background-color: var(--white);
@@ -66,8 +66,24 @@
         }
 
         .nav-links {
-            display: flex;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--white);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             gap: 30px;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+        }
+        
+        .nav-links.active {
+            right: 0;
         }
 
         .nav-links a {
@@ -75,6 +91,7 @@
             color: var(--text-light);
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 18px;
         }
 
         .nav-links a:hover {
@@ -83,8 +100,8 @@
 
         .nav-cta {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
-            padding: 10px 20px;
+            color: var(--white) !important;
+            padding: 12px 25px;
             border-radius: 4px;
             font-weight: 500;
             transition: all 0.3s;
@@ -92,18 +109,32 @@
 
         .nav-cta:hover {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-            color: var(--white);
             transform: translateY(-2px);
         }
 
         .mobile-menu-toggle {
-            display: none;
+            display: block;
             background: none;
             border: none;
             color: var(--text-dark);
             font-size: 24px;
             cursor: pointer;
             z-index: 1001;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+        .overlay.active {
+            display: block;
         }
 
         /* Hero Section */
@@ -137,6 +168,7 @@
             font-weight: 700;
             margin-bottom: 20px;
             line-height: 1.2;
+            text-shadow: 1px 1px 0 var(--black);
         }
 
         .hero p {
@@ -177,6 +209,7 @@
             font-size: 36px;
             color: var(--text-dark);
             margin-bottom: 15px;
+            text-shadow: 1px 1px 0 var(--black);
         }
 
         .section-header p {
@@ -208,11 +241,17 @@
             font-size: 40px;
             color: var(--primary);
             margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .feature-card h3 {
             font-size: 20px;
             margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .feature-card p {
@@ -252,7 +291,8 @@
             width: 100%;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0.9;
         }
 
         .benefits-content {
@@ -262,6 +302,10 @@
         .benefits-content h2 {
             font-size: 36px;
             margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
         }
 
         .benefits-list {
@@ -278,11 +322,17 @@
             color: var(--primary);
             margin-right: 15px;
             font-size: 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .benefit-text h3 {
             font-size: 20px;
             margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .benefit-text p {
@@ -300,6 +350,7 @@
         .cta-section h2 {
             font-size: 36px;
             margin-bottom: 20px;
+            text-shadow: 1px 1px 0 var(--black);
         }
 
         .cta-section p {
@@ -338,6 +389,7 @@
             border-radius: 4px;
             font-size: 16px;
             transition: border-color 0.3s;
+            font-family: Helvetica, Arial, sans-serif;
         }
 
         .form-group input:focus,
@@ -357,6 +409,7 @@
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
+            font-family: Helvetica, Arial, sans-serif;
         }
 
         .submit-button:hover {
@@ -396,45 +449,6 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background-color: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 30px;
-                transition: right 0.3s ease;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-            }
-            
-            .nav-links.active {
-                right: 0;
-            }
-            
-            .overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-            }
-            
-            .overlay.active {
-                display: block;
-            }
-            
             .hero h1 {
                 font-size: 36px;
             }
@@ -545,7 +559,7 @@
         <div class="container">
             <div class="benefits-container">
                 <div class="benefits-image">
-                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2062&q=80" alt="Connected Community">
+                    <img src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Professional Meeting">
                 </div>
                 <div class="benefits-content">
                     <h2>Benefits for Your Community</h2>
@@ -636,7 +650,7 @@
             document.getElementById('demoForm').reset();
         }
         
-        // Mobile menu functionality
+        // Menu functionality (now for all screen sizes)
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
         const overlay = document.getElementById('overlay');
