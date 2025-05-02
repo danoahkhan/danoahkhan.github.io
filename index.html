@@ -6,16 +6,18 @@
     <title>Localgovy - Streamlining Local Government Operations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #8BC0D0;
             --primary-dark: #6BA8BB;
+            --primary-light: #A5D2DF;
             --white: #ffffff;
             --light-gray: #f5f7fa;
             --text-dark: #2D3748;
             --text-light: #4A5568;
+            --black: #000000;
         }
 
         * {
@@ -55,14 +57,12 @@
         }
 
         .logo {
+            font-family: 'Josefin Sans', sans-serif;
             font-size: 24px;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--black);
             text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--text-dark);
+            text-transform: lowercase;
         }
 
         .nav-links {
@@ -82,23 +82,34 @@
         }
 
         .nav-cta {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: var(--white);
             padding: 10px 20px;
             border-radius: 4px;
             font-weight: 500;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
 
         .nav-cta:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
         }
 
         /* Hero Section */
         .hero {
             padding: 160px 0 100px;
-            background: linear-gradient(135deg, var(--primary) 0%, #a5d2df 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: var(--white);
             position: relative;
             overflow: hidden;
@@ -281,7 +292,7 @@
         /* CTA Section */
         .cta-section {
             padding: 100px 0;
-            background: linear-gradient(135deg, var(--primary) 0%, #a5d2df 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: var(--white);
             text-align: center;
         }
@@ -336,7 +347,7 @@
         }
 
         .submit-button {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: var(--white);
             border: none;
             padding: 15px 30px;
@@ -344,12 +355,13 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             width: 100%;
         }
 
         .submit-button:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            transform: translateY(-2px);
         }
 
         /* Footer */
@@ -423,15 +435,43 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 20px;
+            .mobile-menu-toggle {
+                display: block;
             }
             
             .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--white);
                 flex-direction: column;
                 align-items: center;
-                gap: 15px;
+                justify-content: center;
+                gap: 30px;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+            
+            .overlay.active {
+                display: block;
             }
             
             .hero h1 {
@@ -463,8 +503,12 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="#" class="logo">Local<span>govy</span></a>
-                <div class="nav-links">
+                <a href="#" class="logo">localgovy</a>
+                <button class="mobile-menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="overlay" id="overlay"></div>
+                <div class="nav-links" id="navLinks">
                     <a href="#features">Features</a>
                     <a href="#benefits">Benefits</a>
                     <a href="#demo" class="nav-cta">Request Demo</a>
@@ -590,20 +634,12 @@
                         <input type="text" id="name" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Work Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
                         <label for="organization">Government Organization</label>
                         <input type="text" id="organization" name="organization" required>
                     </div>
                     <div class="form-group">
-                        <label for="role">Your Role</label>
-                        <input type="text" id="role" name="role" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">What challenges are you looking to solve?</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
+                        <label for="town">Town/City Name</label>
+                        <input type="text" id="town" name="town" required>
                     </div>
                     <button type="submit" class="submit-button">Request Demo</button>
                 </form>
@@ -663,16 +699,56 @@
             
             // Get form values
             const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
             const organization = document.getElementById('organization').value;
+            const town = document.getElementById('town').value;
             
             // In a real implementation, you would send this data to your server
             // For demo purposes, we'll just show an alert
-            alert(`Thank you, ${name}! Your demo request has been received. We'll contact you at ${email} shortly to schedule your personalized demo for ${organization}.`);
+            alert(`Thank you, ${name}! Your demo request has been received. We'll contact you shortly to schedule your personalized demo for ${organization} in ${town}.`);
             
             // Reset the form
             document.getElementById('demoForm').reset();
         }
+        
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('overlay');
+        
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Toggle menu icon
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close menu when clicking on overlay
+        overlay.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+        
+        // Close menu when clicking on a nav link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                overlay.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
         
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
