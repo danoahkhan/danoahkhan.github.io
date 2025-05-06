@@ -629,19 +629,24 @@
                 <form id="demoForm" method="POST">
                     <div class="form-group">
                         <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" required maxlength="100" pattern="[A-Za-z\s\-'.]+" title="Please enter a valid name (letters, spaces, hyphens and apostrophes only)">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" required maxlength="100">
                     </div>
                     <div class="form-group">
                         <label for="town">Town/City Name</label>
-                        <input type="text" id="town" name="town" required>
+                        <input type="text" id="town" name="town" required maxlength="100" pattern="[A-Za-z\s\-'.]+" title="Please enter a valid town/city name (letters, spaces, hyphens and apostrophes only)">
                     </div>
                     <div class="form-group">
                         <label for="message">Additional Information</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Tell us anything else you'd like us to know..."></textarea>
+                        <textarea id="message" name="message" rows="4" placeholder="Tell us anything else you'd like us to know..." maxlength="500"></textarea>
+                    </div>
+                    <!-- Honeypot field to catch bots -->
+                    <div class="form-group" style="display:none">
+                        <label for="website">Website</label>
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                     </div>
                     <div id="form-status"></div>
                     <button type="submit" class="submit-button">Request Demo</button>
@@ -673,17 +678,54 @@
         const formStatus = document.getElementById('form-status');
         
         // Replace this URL with your Google Apps Script Web App URL (you'll get this after setup)
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwlpyDTMztRkmo4wMkjQ7c1NdH7Q63jLECHdVK9DG6fhOD90_eZKAk3_4mPH9mBs2va/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxEib9I89sULES8DMQYoBUa2R0u9YjaO3FgKHGroknGxjVDt0-MZ9ruom2bWLlgB5Of/exec';
+        
+        // Simple rate limiting - store last submission time
+        const SUBMISSION_COOLDOWN = 60000; // 1 minute in milliseconds
         
         demoForm.addEventListener('submit', function(event) {
             event.preventDefault();
+            
+            // Check if honeypot field is filled (bot detection)
+            if (document.getElementById('website').value !== '') {
+                console.log('Bot submission detected');
+                // Don't show any error to the bot, but don't submit
+                return false;
+            }
+            
+            // Check for rate limiting
+            const lastSubmissionTime = localStorage.getItem('lastFormSubmission');
+            const currentTime = new Date().getTime();
+            
+            if (lastSubmissionTime && (currentTime - lastSubmissionTime < SUBMISSION_COOLDOWN)) {
+                formStatus.innerHTML = '<div style="color: red; margin-bottom: 15px;">Please wait before submitting another request.</div>';
+                return false;
+            }
+            
+            // Sanitize inputs to prevent XSS attacks
+            const formData = new FormData(demoForm);
+            const sanitizedData = new FormData();
+            
+            for (const [key, value] of formData.entries()) {
+                // Skip the honeypot field from being submitted
+                if (key === 'website') continue;
+                
+                // Basic sanitization - remove any HTML tags and trim
+                const sanitizedValue = value.toString()
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .trim();
+                    
+                sanitizedData.append(key, sanitizedValue);
+            }
+            
             const submitButton = demoForm.querySelector('button[type="submit"]');
             submitButton.disabled = true;
             submitButton.innerText = 'Sending...';
             
             fetch(scriptURL, { 
                 method: 'POST', 
-                body: new FormData(demoForm)
+                body: sanitizedData
             })
             .then(response => {
                 if (response.ok) {
@@ -691,6 +733,9 @@
                     demoForm.style.display = 'none';
                     formSuccess.style.display = 'block';
                     demoForm.reset();
+                    
+                    // Store submission time for rate limiting
+                    localStorage.setItem('lastFormSubmission', currentTime);
                 } else {
                     throw new Error('Network response was not ok');
                 }
