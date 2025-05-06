@@ -398,6 +398,29 @@
             outline: none;
         }
 
+        .form-success {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-dark);
+        }
+
+        .success-icon {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .form-success h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .form-success p {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
         .submit-button {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: var(--white);
@@ -603,21 +626,31 @@
             <h2>Ready to Connect Your Community?</h2>
             <p>Request a personalized demo today and see how localgovy can transform information sharing in your town.</p>
             <div class="demo-form">
-                <form id="demoForm" onsubmit="handleSubmit(event)">
+                <form id="demoForm" method="POST">
                     <div class="form-group">
                         <label for="name">Full Name</label>
                         <input type="text" id="name" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="organization">Government Organization</label>
-                        <input type="text" id="organization" name="organization" required>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="town">Town/City Name</label>
                         <input type="text" id="town" name="town" required>
                     </div>
+                    <div class="form-group">
+                        <label for="message">Additional Information</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Tell us anything else you'd like us to know..."></textarea>
+                    </div>
+                    <div id="form-status"></div>
                     <button type="submit" class="submit-button">Request Demo</button>
                 </form>
+                <div class="form-success" style="display: none;">
+                    <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Thank You!</h3>
+                    <p>Your demo request has been received. We'll contact you shortly to schedule your personalized demo.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -634,21 +667,43 @@
     </footer>
 
     <script>
-        function handleSubmit(event) {
+        // Form submission handler using Google Apps Script
+        const demoForm = document.getElementById('demoForm');
+        const formSuccess = document.querySelector('.form-success');
+        const formStatus = document.getElementById('form-status');
+        
+        // Replace this URL with your Google Apps Script Web App URL (you'll get this after setup)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwlpyDTMztRkmo4wMkjQ7c1NdH7Q63jLECHdVK9DG6fhOD90_eZKAk3_4mPH9mBs2va/exec';
+        
+        demoForm.addEventListener('submit', function(event) {
             event.preventDefault();
+            const submitButton = demoForm.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.innerText = 'Sending...';
             
-            // Get form values
-            const name = document.getElementById('name').value;
-            const organization = document.getElementById('organization').value;
-            const town = document.getElementById('town').value;
-            
-            // In a real implementation, you would send this data to your server
-            // For demo purposes, we'll just show an alert
-            alert(`Thank you, ${name}! Your demo request has been received. We'll contact you shortly to schedule your personalized demo for ${organization} in ${town}.`);
-            
-            // Reset the form
-            document.getElementById('demoForm').reset();
-        }
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: new FormData(demoForm)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    demoForm.style.display = 'none';
+                    formSuccess.style.display = 'block';
+                    demoForm.reset();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                formStatus.innerHTML = '<div style="color: red; margin-bottom: 15px;">Oops! There was a problem submitting your form. Please try again later.</div>';
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.innerText = 'Request Demo';
+            });
+        });
         
         // Menu functionality (now for all screen sizes)
         const menuToggle = document.getElementById('menuToggle');
