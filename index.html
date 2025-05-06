@@ -698,7 +698,7 @@
             const currentTime = new Date().getTime();
             
             if (lastSubmissionTime && (currentTime - lastSubmissionTime < SUBMISSION_COOLDOWN)) {
-                formStatus.innerHTML = '<div style="color: red; margin-bottom: 15px;">Please wait before submitting another request.</div>';
+                formStatus.innerHTML = '<div style="color: red; margin-bottom: 15px;">Please wait a couple of minutes before submitting another request.</div>';
                 return false;
             }
             
